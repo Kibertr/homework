@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.1.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 27, 2023 at 11:27 AM
+-- Generation Time: Feb 29, 2024 at 11:31 AM
 -- Server version: 5.7.24
--- PHP Version: 7.4.1
+-- PHP Version: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -31,18 +30,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `attendance` (
   `id` int(5) NOT NULL,
   `date` date NOT NULL,
-  `subject` varchar(40) NOT NULL,
+  `attend` varchar(255) NOT NULL,
   `group_id` int(5) NOT NULL,
-  `visiting` int(2) NOT NULL
+  `month` int(5) NOT NULL,
+  `subject_id` int(5) NOT NULL,
+  `total_students` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `attendance`
 --
 
-INSERT INTO `attendance` (`id`, `date`, `subject`, `group_id`, `visiting`) VALUES
-(1, '2023-12-23', 'метаматика', 1, 13),
-(2, '2023-12-22', 'математика', 1, 6);
+INSERT INTO `attendance` (`id`, `date`, `attend`, `group_id`, `month`, `subject_id`, `total_students`) VALUES
+(1, '2024-02-01', '5', 2, 2, 1, 8),
+(2, '2024-02-02', '6', 2, 2, 1, 7),
+(3, '2024-02-03', '6', 2, 2, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -52,7 +54,7 @@ INSERT INTO `attendance` (`id`, `date`, `subject`, `group_id`, `visiting`) VALUE
 
 CREATE TABLE `groups` (
   `id` int(5) NOT NULL,
-  `name` varchar(31) NOT NULL
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -60,9 +62,8 @@ CREATE TABLE `groups` (
 --
 
 INSERT INTO `groups` (`id`, `name`) VALUES
-(1, 'ИС-04'),
-(2, 'ИС-01'),
-(3, 'ИС-02');
+(1, 'ИС-01'),
+(2, 'ИС-04');
 
 -- --------------------------------------------------------
 
@@ -72,8 +73,8 @@ INSERT INTO `groups` (`id`, `name`) VALUES
 
 CREATE TABLE `students` (
   `id` int(5) NOT NULL,
-  `name` varchar(31) NOT NULL,
-  `group_id` varchar(5) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `group_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -81,19 +82,13 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `name`, `group_id`) VALUES
-(1, 'Якунин Дмитрий Сергеевич', '1'),
-(2, 'Садыгов Муслим Асланович', '1'),
-(3, 'студент3', '1'),
-(4, 'студент4', '1'),
-(5, 'студент5', '1'),
-(6, 'студент6', '1'),
-(7, 'студент7', '1'),
-(8, 'студент8', '1'),
-(9, 'студент9', '1'),
-(10, 'студент10', '1'),
-(11, 'студент11', '1'),
-(12, 'студент12', '1'),
-(13, 'студент13', '1');
+(1, 'Якунин Дмитрий Сергеевич', 2),
+(3, 'Садыгов Муслим Асланович', 2),
+(4, 'Садыгов Муслим Асланович', 2),
+(5, 'Садыгов Муслим Асланович', 2),
+(6, 'Садыгов Муслим Асланович', 2),
+(7, 'Садыгов Муслим Асланович', 2),
+(8, 'Садыгов Муслим Асланович', 2);
 
 -- --------------------------------------------------------
 
@@ -103,17 +98,16 @@ INSERT INTO `students` (`id`, `name`, `group_id`) VALUES
 
 CREATE TABLE `subjects` (
   `id` int(5) NOT NULL,
-  `subject` varchar(31) NOT NULL
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `subjects`
 --
 
-INSERT INTO `subjects` (`id`, `subject`) VALUES
-(1, 'метаматика'),
-(2, 'история'),
-(3, 'информатика');
+INSERT INTO `subjects` (`id`, `name`) VALUES
+(1, 'информатика'),
+(2, 'математика');
 
 --
 -- Indexes for dumped tables
@@ -151,25 +145,25 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
